@@ -1,0 +1,4 @@
+export default {
+  CONNECT_TO_API: "CONNECT_TO_API",
+  CONNECTED: "CONNECTED",
+};
