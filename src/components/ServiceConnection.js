@@ -4,8 +4,9 @@ import { setConnection, setConnected } from "../store/actions";
 import { serviceIsUp } from "../services/api";
 
 const ServiceConnection = (props) => {
-  const [url, setUrl] = useState("");
+  const [url, setUrl] = useState(props.apiBaseUrl);
   const [errorMessage, setErrorMessage] = useState("");
+  const defaultErrorMessage = "No hay api a la que conectar ahí :(";
 
   const checkServiceConnection = async () => {
     console.log("url: ", url);
@@ -18,12 +19,15 @@ const ServiceConnection = (props) => {
         props.setConnection(url);
       } else {
         setUrl("");
-        setErrorMessage("No hay api a la que conectar ahí :(");
+        setErrorMessage(defaultErrorMessage);
       }
     } catch (err) {
       console.error("error on checking service connection: ", err);
+      setErrorMessage(defaultErrorMessage);
     }
   }
+
+  checkServiceConnection();
 
   return (
     <div className="service-connection">
