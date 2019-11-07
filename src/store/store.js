@@ -1,8 +1,15 @@
 import { createStore } from "redux";
 import reducer from "./reducer";
+import { storage } from "../config/vars";
+import { get } from "../services/storage";
+
+const getBaseUrl = () => {
+  const value = get(storage.apiBaseUrlKey);
+  return value || storage.DEFAULT_API_BASE_URL;
+};
 
 const DEFAULT_STATE = {
-  apiBaseUrl: "http://localhost:4000",
+  apiBaseUrl: getBaseUrl(),
   connected: false,
 };
 

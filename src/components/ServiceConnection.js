@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { setConnection, setConnected } from "../store/actions";
 import { serviceIsUp } from "../services/api";
 
 const ServiceConnection = (props) => {
-  const [url, setUrl] = useState(props.apiBaseUrl);
+  const { setConnected, setConnection, apiBaseUrl } = props;
+  const [url, setUrl] = useState(apiBaseUrl);
   const [errorMessage, setErrorMessage] = useState("");
   const defaultErrorMessage = "No hay api a la que conectar ahí :(";
 
@@ -12,11 +13,11 @@ const ServiceConnection = (props) => {
     console.log("url: ", url);
     try {
       const connected = await serviceIsUp(url);
-      props.setConnected(connected);
+      setConnected(connected);
       if (connected) {
         console.log('set connection!!!', connected);
         setErrorMessage("");
-        props.setConnection(url);
+        setConnection(url);
       } else {
         setUrl("");
         setErrorMessage(defaultErrorMessage);
@@ -27,7 +28,13 @@ const ServiceConnection = (props) => {
     }
   }
 
-  checkServiceConnection();
+  /**
+   * This makes the function to be executed only the very first time
+   * the component is rendered, and not every time url changes.
+   */
+  useEffect(() => {
+    checkServiceConnection();
+  }, []); // TODO: // FIXME: investigate about this warning
 
   return (
     <div className="service-connection">
