@@ -11,6 +11,8 @@ const getBaseUrl = () => {
 const DEFAULT_STATE = {
   apiBaseUrl: getBaseUrl(),
   connected: false,
+  authenticated: false,
+  accessToken: get(storage.accessTokenKey) || ""
 };
 
 const configureStore = (state = DEFAULT_STATE) => createStore(reducer, state);

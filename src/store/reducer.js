@@ -6,6 +6,10 @@ export default (state, action) => {
       return { ...state, apiBaseUrl: action.payload }
     case types.CONNECTED:
       return { ...state, connected: action.payload }
+    case types.AUTHENTICATED:
+      return { ...state, authenticated: action.payload }
+    case types.ACCESS_TOKEN:
+      return { ...state, accessToken: action.payload }
     default:
       return state;
   };

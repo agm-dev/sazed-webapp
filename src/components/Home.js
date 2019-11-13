@@ -4,7 +4,7 @@ function Home () {
   return (
     <>
       <h1>Home</h1>
-      <p>aquí algo by default?</p>
+      <a href="http://localhost:3000/api/auth/google" >Login</a>
     </>
   );
 }
