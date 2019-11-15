@@ -1,2 +1,9 @@
-export const serviceIsUp = async baseUrl => fetch(`${baseUrl}/api/status`)
+export const serviceIsUp = baseUrl => fetch(`${baseUrl}/api/status`)
   .then(res => res.status === 204);
+
+export const getUserInfo = (baseUrl, token) => fetch(`${baseUrl}/api/user/me`, { headers: { Authorization: `JWT ${token}` } })
+  .then(res => res.status === 200 ? res.json() : {})
+  .catch(err => {
+    console.error('error on getUserInfo: ', err.message);
+    return {};
+  });

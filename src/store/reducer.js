@@ -10,6 +10,8 @@ export default (state, action) => {
       return { ...state, authenticated: action.payload }
     case types.ACCESS_TOKEN:
       return { ...state, accessToken: action.payload }
+    case types.USER:
+      return { ...state, user: action.payload }
     default:
       return state;
   };

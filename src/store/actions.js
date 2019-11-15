@@ -9,6 +9,11 @@ export const setConnection = payload => {
 
 export const setConnected = payload => ({ type: types.CONNECTED, payload });
 
-export const setAccessToken = payload => ({ type: types.ACCESS_TOKEN, payload });
+export const setAccessToken = payload => {
+  set(storage.accessTokenKey, payload);
+  return { type: types.ACCESS_TOKEN, payload }
+};
 
 export const setAuthenticated = payload => ({ type: types.AUTHENTICATED, payload });
+
+export const setUser = payload => ({ type: types.USER , payload });
