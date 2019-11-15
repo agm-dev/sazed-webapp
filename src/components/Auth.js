@@ -29,7 +29,7 @@ const Auth = (props) => {
 
   useEffect(() => {
     connect();
-  });
+  }, []);
 
   return (
     <>
