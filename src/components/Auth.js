@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { setAccessToken, setAuthenticated, setUser } from "../store/actions";
-import { getTokenFromUrl } from "../services/token";
+import { getTokenFromUrl, getTokenFromStorage } from "../services/token";
 import { getUserInfo } from "../services/api";
 
 const Auth = (props) => {
@@ -14,7 +14,7 @@ const Auth = (props) => {
     accessToken
   } = props;
 
-  const token = getTokenFromUrl();
+  const token = getTokenFromUrl() || getTokenFromStorage();
 
   const connect = async () => {
     if (accessToken !== token || !authenticated) {
