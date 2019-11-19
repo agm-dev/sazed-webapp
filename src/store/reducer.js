@@ -12,6 +12,8 @@ export default (state, action) => {
       return { ...state, accessToken: action.payload }
     case types.USER:
       return { ...state, user: action.payload }
+    case types.CUSTOMERS:
+      return { ...state, customers: action.payload }
     default:
       return state;
   };

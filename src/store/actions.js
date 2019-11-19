@@ -17,3 +17,5 @@ export const setAccessToken = payload => {
 export const setAuthenticated = payload => ({ type: types.AUTHENTICATED, payload });
 
 export const setUser = payload => ({ type: types.USER , payload });
+
+export const setCustomers = payload => ({ type: types.CUSTOMERS, payload });

@@ -13,7 +13,8 @@ const DEFAULT_STATE = {
   connected: false,
   authenticated: false,
   accessToken: get(storage.accessTokenKey) || "",
-  user: {}
+  user: {},
+  customers: [],
 };
 
 const configureStore = (state = DEFAULT_STATE) => createStore(reducer, state);

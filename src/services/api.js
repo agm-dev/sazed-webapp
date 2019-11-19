@@ -7,3 +7,11 @@ export const getUserInfo = (baseUrl, token) => fetch(`${baseUrl}/api/user/me`, {
     console.error('error on getUserInfo: ', err.message);
     return {};
   });
+
+export const getCustomers = (baseUrl, token) => fetch(`${baseUrl}/api/customer`, { headers: { Authorization: `JWT ${token}` }})
+  .then(res => res.json())
+  .then(res => res.data)
+  .catch(err => {
+    console.error('error on getCustomers: ', err.message);
+    return [];
+  });
