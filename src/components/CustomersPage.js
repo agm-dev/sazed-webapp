@@ -3,9 +3,7 @@ import { connect } from "react-redux";
 import { getCustomers } from "../services/api";
 import { getTokenFromUrl, getTokenFromStorage } from "../services/token";
 import { setCustomers } from "../store/actions";
-
-
-
+import SearchBox from "./SearchBox";
 
 class CustomersPage extends React.Component {
   // eslint-disable-next-line no-useless-constructor
@@ -26,7 +24,8 @@ class CustomersPage extends React.Component {
     return (
       <>
         <h1>Pacientes</h1>
-        {this.props.customers.map(i => <p key={i.id}>{i.firstname}</p>)}
+        <SearchBox />
+        {this.props.customers.map(i => <p key={i.id}>{i.firstname} {i.lastname}</p>)}
       </>
     );
   }
