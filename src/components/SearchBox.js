@@ -11,6 +11,7 @@ class SearchBox extends React.Component {
     this.state = {
       searchText: ""
     }
+    this.timer = null;
     this.onTyping = this.onTyping.bind(this);
   }
 
@@ -19,10 +20,13 @@ class SearchBox extends React.Component {
     console.log("typing: ", searchText);
     this.setState({ searchText });
 
-    const token = getTokenFromUrl() || getTokenFromStorage();
-    const customers = await getCustomers(this.props.apiBaseUrl, token, searchText);
-    console.log('[customers] api response: ', customers);
-    this.props.setCustomers(customers);
+    clearInterval(this.timer);
+    this.timer = setTimeout(async function () {
+      const token = getTokenFromUrl() || getTokenFromStorage();
+      const customers = await getCustomers(this.props.apiBaseUrl, token, searchText);
+      console.log('[customers] api response: ', customers);
+      this.props.setCustomers(customers);
+    }.bind(this), 200);
   }
 
   render () {
