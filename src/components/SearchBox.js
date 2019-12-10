@@ -15,11 +15,12 @@ class SearchBox extends React.Component {
   }
 
   async onTyping (e) {
-    console.log("typing: ", e.target.value);
-    this.setState({ searchText: e.target.value });
+    const searchText = e.target.value;
+    console.log("typing: ", searchText);
+    this.setState({ searchText });
 
     const token = getTokenFromUrl() || getTokenFromStorage();
-    const customers = await getCustomers(this.props.apiBaseUrl, token);
+    const customers = await getCustomers(this.props.apiBaseUrl, token, searchText);
     console.log('[customers] api response: ', customers);
     this.props.setCustomers(customers);
   }
