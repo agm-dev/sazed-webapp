@@ -43,11 +43,28 @@ const ServiceConnection = (props) => {
         ? props.children
         : (
           <div className="container">
-            <div className="row">
-              <div className="col-xs-12">
-                <input className="form-control" type="text" value={url} onChange={event => setUrl(event.target.value)}/>
-                <button className="btn btn-primary" onClick={checkServiceConnection}>Connect</button>
-                <p>{errorMessage}</p>
+            <div className="row align-items-center" style={{marginTop: '20px'}}>
+              <div className="col align-self-center">
+                <h1>Conexión</h1>
+                <div className="form-group">
+                  <label for="apiUrl">API url:</label>
+                  <input
+                    id="apiUrl"
+                    className="form-control"
+                    type="text"
+                    value={url}
+                    onChange={event => setUrl(event.target.value)}
+                    aria-describedby="apiUrlHelp"
+                    placeholder="Introduce la URL del servicio sazed"
+                  />
+                  <small id="apiUrlHelp" class="form-text text-muted">Esta aplicación necesita conectarse a un servicio "sazed" para funcionar.</small>
+                </div>
+                <div className="form-group">
+                  <button className="btn btn-primary" onClick={checkServiceConnection}>Conectar</button>
+                </div>
+                <div className="form-group">
+                  <p>{errorMessage}</p>
+                </div>
               </div>
             </div>
           </div>
