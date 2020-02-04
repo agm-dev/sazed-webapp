@@ -37,19 +37,23 @@ const ServiceConnection = (props) => {
   }, []); // TODO: // FIXME: investigate about this warning
 
   return (
-    <div className="service-connection">
+    <>
       {
         props.connected
         ? props.children
         : (
-          <div className="service-connection__disconnected">
-            <input type="text" value={url} onChange={event => setUrl(event.target.value)}/>
-            <button onClick={checkServiceConnection}>Connect</button>
-            <p>{errorMessage}</p>
+          <div className="container">
+            <div className="row">
+              <div className="col-xs-12">
+                <input className="form-control" type="text" value={url} onChange={event => setUrl(event.target.value)}/>
+                <button className="btn btn-primary" onClick={checkServiceConnection}>Connect</button>
+                <p>{errorMessage}</p>
+              </div>
+            </div>
           </div>
         )
       }
-    </div>
+    </>
   );
 }
 
