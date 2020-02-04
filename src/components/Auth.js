@@ -37,8 +37,14 @@ const Auth = (props) => {
         props.authenticated
         ? props.children
         : (
-          <div className="login">
-            <a href="http://localhost:3000/api/auth/google" >Login</a>
+          <div className="container">
+            <div className="row align-items-center" style={{marginTop: '20px'}}>
+              <div className="col align-self-center">
+                <h1>Iniciar sesión</h1>
+                <p>Necesitas estar registrado e iniciar sesión con tu cuenta de usuario para utilizar la aplicación.</p>
+                <a className="btn btn-primary" href={`${apiBaseUrl}/api/auth/google`}>Iniciar sesión</a>
+              </div>
+            </div>
           </div>
         )
       }
