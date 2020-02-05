@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 import { getCustomers } from "../services/api";
 import { getTokenFromUrl, getTokenFromStorage } from "../services/token";
 import { setCustomers } from "../store/actions";
@@ -28,6 +29,12 @@ class CustomersPage extends React.Component {
         <p>Desde aquí puedes buscar pacientes y acceder a sus detalles, o añadir nuevos.</p>
         <SearchBox />
         <CustomersList customers={this.props.customers} />
+        <Link
+          className="position-fixed button-add"
+          to="/customers/add"
+        >
+          <span className="add-icon">+</span>
+        </Link>
       </div>
     );
   }
