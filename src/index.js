@@ -2,6 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from "react-redux";
 import 'bootstrap/dist/css/bootstrap.css';
+// eslint-disable-next-line
+import $ from 'jquery';
+// eslint-disable-next-line
+import Popper from 'popper.js';
+import 'bootstrap/dist/js/bootstrap.bundle.min';
 import configureStore from "./store/store";
 import './index.css';
 import App from './App';
