@@ -18,4 +18,9 @@ export const setAuthenticated = payload => ({ type: types.AUTHENTICATED, payload
 
 export const setUser = payload => ({ type: types.USER , payload });
 
-export const setCustomers = payload => ({ type: types.CUSTOMERS, payload });
+const setBeforeAction = (key, type) => payload => {
+  set(key, payload);
+  return { type, payload };
+}
+
+export const setCustomers = setBeforeAction(storage.customersKey, types.CUSTOMERS);
