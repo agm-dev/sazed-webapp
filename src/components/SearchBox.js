@@ -31,8 +31,18 @@ class SearchBox extends React.Component {
 
   render () {
     return (
-      <div className="searchBox">
-        <input className="searchBox__input" value={this.state.searchText} onChange={this.onTyping}/>
+      <div className="form-group">
+        <label htmlFor="searchCustomers">Buscar paciente:</label>
+        <input
+          id="searchCustomers"
+          className="form-control"
+          type="text"
+          aria-describedby="searchCustomersHelp"
+          placeholder="Nombre, apellidos, DNI, etc..."
+          value={this.state.searchText}
+          onChange={this.onTyping}
+        />
+        <small id="searchCustomersHelp" className="form-text text-muted">Puedes buscar pacientes por nombre, apellido, email o DNI.</small>
       </div>
     );
   }

@@ -8,6 +8,7 @@ import {
 import Home from "./Home";
 import SessionsPage from "./SessionsPage";
 import CustomersPage from "./CustomersPage";
+import CustomerPage from "./CustomerPage";
 
 function Routes () {
   return (
@@ -52,6 +53,9 @@ function Routes () {
             <Route path="/sessions">
               <SessionsPage />
             </Route>
+            <Route path="/customers/:nif" render={({ match }) => (
+              <CustomerPage nif={match.params.nif}/>
+            )}/>
             <Route path="/customers">
               <CustomersPage />
             </Route>

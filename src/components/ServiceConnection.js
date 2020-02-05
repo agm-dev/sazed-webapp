@@ -47,7 +47,7 @@ const ServiceConnection = (props) => {
               <div className="col align-self-center">
                 <h1>Conexión</h1>
                 <div className="form-group">
-                  <label for="apiUrl">API url:</label>
+                  <label htmlFor="apiUrl">API url:</label>
                   <input
                     id="apiUrl"
                     className="form-control"
@@ -57,7 +57,7 @@ const ServiceConnection = (props) => {
                     aria-describedby="apiUrlHelp"
                     placeholder="Introduce la URL del servicio sazed"
                   />
-                  <small id="apiUrlHelp" class="form-text text-muted">Esta aplicación necesita conectarse a un servicio "sazed" para funcionar.</small>
+                  <small id="apiUrlHelp" className="form-text text-muted">Esta aplicación necesita conectarse a un servicio "sazed" para funcionar.</small>
                 </div>
                 <div className="form-group">
                   <button className="btn btn-primary" onClick={checkServiceConnection}>Conectar</button>
