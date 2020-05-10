@@ -1,11 +1,14 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
+import { updateCustomer } from "../services/api"
 
 const mapStateToProps = state => ({
   customers: state.customers,
+  token: state.accessToken,
+  apiBaseUrl: state.apiBaseUrl,
 });
 
-const CustomerPage = ({ nif, customers, editable = false }) => {
+const CustomerPage = ({ nif, customers, editable = false, apiBaseUrl, token }) => {
   console.log('DEBUG: ', customers);
 
   const customer = customers.find(i => i.nif === nif);
@@ -39,6 +42,26 @@ const CustomerPage = ({ nif, customers, editable = false }) => {
   const submitHandler = e => {
     e.preventDefault()
     console.log("GUARDAR: ", customer)
+
+    const data = {
+      id: customer.id,
+      nif,
+      firstname,
+      lastname,
+      phone: Number(phone),
+      email,
+      birthdate,
+      LGPD: lgpd,
+    }
+
+    if (notes.length) {
+      data.notes = notes
+    }
+
+    console.log("new data", data)
+
+    updateCustomer(apiBaseUrl, token, data)
+      .then(res => console.log("updateCustomer response: ", res))
   }
 
   return (
