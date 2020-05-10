@@ -8,10 +8,28 @@ const mapStateToProps = state => ({
 const CustomerPage = ({ nif, customers, editable = false }) => {
   console.log('DEBUG: ', customers);
 
-  const [edit, setEdit] = useState(editable)
-
   const customer = customers.find(i => i.nif === nif);
   console.log('customer: ', customer);
+
+  const [edit, setEdit] = useState(editable)
+  const [dni, setDni] = useState(customer.nif || "")
+  const [firstname, setFirstname] = useState(customer.firstname || "")
+  const [lastname, setLastname] = useState(customer.lastname || "")
+  const [phone, setPhone] = useState(customer.phone)
+  const [email, setEmail] = useState(customer.email)
+  const [birthdate, setBirthdate] = useState(customer.birthdate)
+  const [notes, setNotes] = useState(customer.notes || "")
+  const [lgpd, setLgpd] = useState(customer.LGPD)
+
+  const formatDate = d => {
+    const date = new Date(d)
+    const getTwoDigits = value => value < 10 ? `0${value}` : value;
+    const day = getTwoDigits(date.getDate());
+    const month = getTwoDigits(date.getMonth() + 1); // add 1 since getMonth returns 0-11 for the months
+    const year = date.getFullYear();
+
+    return `${year}-${month}-${day}`;
+  }
 
   const editHandler = e => {
     e.preventDefault()
@@ -31,7 +49,8 @@ const CustomerPage = ({ nif, customers, editable = false }) => {
           <input
             id="nif"
             type="text"
-            value={customer.nif || ""}
+            value={dni}
+            onInput={e => setDni(e.target.value)}
             className="form-control"
             aria-describedby="nifHelp"
             placeholder="Introduce el DNI del paciente"
@@ -46,7 +65,8 @@ const CustomerPage = ({ nif, customers, editable = false }) => {
           <input
             id="firstname"
             type="text"
-            value={customer.firstname || ""}
+            value={firstname}
+            onInput={e => setFirstname(e.target.value)}
             className="form-control"
             placeholder="Introduce el nombre del paciente"
             required
@@ -59,7 +79,8 @@ const CustomerPage = ({ nif, customers, editable = false }) => {
           <input
             id="lastname"
             type="text"
-            value={customer.lastname || ""}
+            value={lastname}
+            onInput={e => setLastname(e.target.value)}
             className="form-control"
             placeholder="Introduce el nombre del paciente"
             disabled={!edit}
@@ -71,7 +92,8 @@ const CustomerPage = ({ nif, customers, editable = false }) => {
           <input
             id="phone"
             type="tel"
-            value={customer.phone}
+            value={phone}
+            onInput={e => setPhone(e.target.value)}
             className="form-control"
             placeholder="Número de teléfono de contacto"
             disabled={!edit}
@@ -83,7 +105,8 @@ const CustomerPage = ({ nif, customers, editable = false }) => {
           <input
             id="email"
             type="email"
-            value={customer.email}
+            value={email}
+            onInput={e => setEmail(e.target.value)}
             className="form-control"
             placeholder="Email de contacto"
             disabled={!edit}
@@ -95,7 +118,8 @@ const CustomerPage = ({ nif, customers, editable = false }) => {
           <input
             id="birthdate"
             type="date"
-            value={customer.birthdate}
+            value={formatDate(birthdate)}
+            onInput={e => setBirthdate(e.target.value)}
             className="form-control"
             placeholder="Fecha de nacimiento"
             disabled={!edit}
@@ -106,33 +130,36 @@ const CustomerPage = ({ nif, customers, editable = false }) => {
           <label htmlFor="notes">Anotaciones:</label>
           <textarea
             id="notes"
+            value={notes}
+            onInput={e => setNotes(e.target.value)}
             placeholder="Anotaciones..."
             className="form-control"
             disabled={!edit}
-          >{customer.notes}</textarea>
+          ></textarea>
         </div>
 
         <div className="form-check">
           <input
             id="lgpd"
             type="checkbox"
-            checked={customer.LGPD}
+            checked={lgpd}
+            onChange={e => setLgpd(e.target.checked)}
             className="form-check-input"
             disabled={!edit}
           />
-          <label htmlFor="lgpd" class="form-check-label">El paciente ha aceptado la política sobre LGPD.</label>
+          <label htmlFor="lgpd" className="form-check-label">El paciente ha aceptado la política sobre LGPD.</label>
         </div>
 
         {!edit && (
           <button
-            class="btn btn-primary"
+            className="btn btn-primary"
             onClick={editHandler}
           >Editar</button>
         )}
 
         {edit && (
           <button
-            class="btn btn-primary"
+            className="btn btn-primary"
             onClick={submitHandler}
           >Guardar</button>
         )}
