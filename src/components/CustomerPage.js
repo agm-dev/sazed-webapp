@@ -61,7 +61,18 @@ const CustomerPage = ({ nif, customers, editable = false, apiBaseUrl, token }) =
     console.log("new data", data)
 
     updateCustomer(apiBaseUrl, token, data)
-      .then(res => console.log("updateCustomer response: ", res))
+      .then(res => {
+        console.log("updateCustomer response: ", res)
+        setDni(res.nif)
+        setFirstname(res.firstname)
+        setLastname(res.lastname)
+        setPhone(res.phone)
+        setEmail(res.email)
+        setBirthdate(res.birthdate)
+        setNotes(res.notes)
+        setLgpd(res.LGPD)
+        setEdit(false)
+      })
   }
 
   return (
