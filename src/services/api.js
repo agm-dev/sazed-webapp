@@ -36,3 +36,19 @@ export const updateCustomer = (baseUrl, token, customer) => {
     .then(res => res.json())
     .catch(err => console.error("error on updateCustomer: ", err.message))
 }
+
+export const createCustomer = (baseUrl, token, customer) => {
+  const { nif, firstname, lastname, phone, email, birthdate, notes, LGPD } = customer
+  const endpoint = `${baseUrl}/api/customer`;
+
+  return fetch(endpoint, {
+    headers: {
+      Authorization: `JWT ${token}`,
+      'Content-type': 'application/json; charset=UTF-8'
+    },
+    method: "POST",
+    body: JSON.stringify({ nif, firstname, lastname, phone, email, birthdate, notes, LGPD }),
+  })
+    .then(res => res.json())
+    .catch(err => console.error("error on createCustomer: ", err.message))
+}

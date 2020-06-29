@@ -53,6 +53,9 @@ function Routes () {
             <Route path="/sessions">
               <SessionsPage />
             </Route>
+            <Route path="/customers/add" render={({ match }) => (
+              <CustomerPage editable />
+            )}/>
             <Route path="/customers/:nif" render={({ match }) => (
               <CustomerPage nif={match.params.nif}/>
             )}/>

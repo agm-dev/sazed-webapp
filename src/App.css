@@ -22,6 +22,6 @@
   left: 20px;
 }
 
-input[type=text], textarea {
+input[type=text] {
   text-transform: capitalize;
 }

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import { updateCustomer } from "../services/api"
+import { createCustomer, updateCustomer } from "../services/api"
 
 const mapStateToProps = state => ({
   customers: state.customers,
@@ -11,7 +11,7 @@ const mapStateToProps = state => ({
 const CustomerPage = ({ nif, customers, editable = false, apiBaseUrl, token }) => {
   console.log('DEBUG: ', customers);
 
-  const customer = customers.find(i => i.nif === nif);
+  const customer = customers.find(i => i.nif === nif) || {};
   console.log('customer: ', customer);
 
   const [edit, setEdit] = useState(editable)
@@ -44,8 +44,7 @@ const CustomerPage = ({ nif, customers, editable = false, apiBaseUrl, token }) =
     console.log("GUARDAR: ", customer)
 
     const data = {
-      id: customer.id,
-      nif,
+      nif: dni,
       firstname,
       lastname,
       phone: Number(phone),
@@ -54,15 +53,37 @@ const CustomerPage = ({ nif, customers, editable = false, apiBaseUrl, token }) =
       LGPD: lgpd,
     }
 
+    if (customer.id) {
+      data.id = customer.id
+    }
+
     if (notes.length) {
       data.notes = notes
     }
 
     console.log("new data", data)
 
-    updateCustomer(apiBaseUrl, token, data)
+    if (data.id) {
+      return updateCustomer(apiBaseUrl, token, data)
       .then(res => {
+        // TODO: handle error response
         console.log("updateCustomer response: ", res)
+        setDni(res.nif)
+        setFirstname(res.firstname)
+        setLastname(res.lastname)
+        setPhone(res.phone)
+        setEmail(res.email)
+        setBirthdate(res.birthdate)
+        setNotes(res.notes)
+        setLgpd(res.LGPD)
+        setEdit(false)
+      })
+    }
+
+    createCustomer(apiBaseUrl, token, data)
+      .then(res => {
+        // TODO: duplicated block, put it in a fn
+        console.log("createCustomer response: ", res)
         setDni(res.nif)
         setFirstname(res.firstname)
         setLastname(res.lastname)
@@ -164,7 +185,7 @@ const CustomerPage = ({ nif, customers, editable = false, apiBaseUrl, token }) =
           <label htmlFor="notes">Anotaciones:</label>
           <textarea
             id="notes"
-            value={notes}
+            value={notes.split("").map((v, i) => i === 0 ? v.toUpperCase() : v).join("")}
             onInput={e => setNotes(e.target.value)}
             placeholder="Anotaciones..."
             className="form-control"
